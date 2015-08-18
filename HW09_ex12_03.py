@@ -9,10 +9,20 @@
 ###############################################################################
 # Imports
 
+from operator import itemgetter
+
 # Body
 
 def most_frequent(s):
-    print s
+    s = s.lower()
+    freq_dict = {}
+    for char in s:
+        freq_dict[char] = freq_dict.get(char, 0) + 1
+    freq_list = [(char, freq) for char, freq in freq_dict.items()]
+    freq_list = sorted(freq_list, key=itemgetter(1), reverse = True)
+    for item in freq_list:
+        print item[0]
+    
 
 ###############################################################################
 def main():   # DO NOT CHANGE BELOW

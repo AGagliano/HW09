@@ -14,7 +14,12 @@
 
 # Body
 
-
+def sumall(*args):
+	sum = 0
+	for i, value in enumerate(args):
+		sum += value
+	return sum
+	
 
 ###############################################################################
 def main():   # DO NOT CHANGE BELOW

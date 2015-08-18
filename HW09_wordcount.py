@@ -38,12 +38,54 @@ print_words() and print_top().
 """
 
 import sys
+import string
+import operator
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
+
+
+def dict_of_counts(filename):
+  with open(filename) as f:
+    list_of_words = f.read().split()
+    list_of_words = [word.lower() for word in list_of_words]            #Make all words lowercase
+    dict_of_words = {i:line for i, line in enumerate(list_of_words)}
+
+  #Create dictionary of counts for each word
+  dict_of_words_counts = {}
+  for key, value in dict_of_words.iteritems():
+    dict_of_words_counts[value] = dict_of_words_counts.get(value, 0) + 1
+
+  return dict_of_words_counts
+
+  #Note, when this is run with 'alice.txt', the punctuation is still 
+  #attached to the words. This is a bug I need to fix, but I haven't
+  #figured out how yet.
+
+
+def print_words(filename):
+
+  dict_of_words_counts = dict_of_counts(filename)
+  
+  #Print the dictionary of counts for each word in sorted order
+  for word in sorted(dict_of_words_counts.keys()):
+    print word + " " + str(dict_of_words_counts[word])
+
+
+def print_top(filename):
+  
+  dict_of_words_counts = dict_of_counts(filename)
+
+  count = 0
+  for key, value in sorted(dict_of_words_counts.items(), key = operator.itemgetter(1), reverse = True):
+    if count < 20:
+      print key, value
+      count += 1
+    else:
+      return
 
 ###
 
